@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_dev_class/screens/tela_personagens.dart';
 
 List<String> images = ["locations.png", "episodes.png", "characters.png"];
 List<String> titles = ["Locations", "Episodes", "Characters"];
@@ -13,7 +14,7 @@ class TelaInicial extends StatelessWidget{
           style: TextStyle(color: Colors.white),
           )),
         leading: Icon(Icons.rocket, color: Colors.white), 
-        backgroundColor: const Color.fromARGB(255, 36, 106, 163),
+        backgroundColor: const Color.fromARGB(255, 0, 53, 100),
         ),
       body: Center(
         child: ListView.builder(
@@ -28,7 +29,7 @@ class TelaInicial extends StatelessWidget{
                   GestureDetector(
                     child: Image.asset("assets/${images[index]}", height: 150, width: 150),
                     onTap: () => {
-                      debugPrint("CLICOU EM ${titles[index]}")
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TelaPersonagens()))
                     }),
                     SizedBox(height: 10),
                     Text(

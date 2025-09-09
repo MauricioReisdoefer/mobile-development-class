@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_class/core/models/character_model.dart';
 
-class Characters extends StatelessWidget {
+class CharactersList extends StatelessWidget {
   final List<Character> charList;
 
-  Characters({required this.charList});
+  CharactersList({required this.charList});
 
   @override
   Widget build(BuildContext context) {
