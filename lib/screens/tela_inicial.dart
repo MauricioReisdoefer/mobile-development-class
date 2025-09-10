@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_class/screens/tela_personagens.dart';
+import 'package:mobile_dev_class/screens/tela_episodes.dart';
+import 'package:mobile_dev_class/screens/tela_locations.dart';
 
 List<String> images = ["locations.png", "episodes.png", "characters.png"];
 List<String> titles = ["Locations", "Episodes", "Characters"];
+List<Widget> pages = [TelaLocations(), TelaEpisodes(), TelaPersonagens()];
 
 class TelaInicial extends StatelessWidget{
   @override
@@ -29,7 +32,7 @@ class TelaInicial extends StatelessWidget{
                   GestureDetector(
                     child: Image.asset("assets/${images[index]}", height: 150, width: 150),
                     onTap: () => {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => TelaPersonagens()))
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => pages[index]))
                     }),
                     SizedBox(height: 10),
                     Text(
