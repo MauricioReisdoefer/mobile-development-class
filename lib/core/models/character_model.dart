@@ -66,24 +66,3 @@ class CharacterLocation {
         "url": url,
       };
 }
-
-class CharacterOrigin {
-  CharacterOrigin({
-    required this.name,
-    required this.url,
-  });
-
-  String name;
-  String url;
-
-  factory CharacterOrigin.fromJson(Map<String, dynamic> json) =>
-      CharacterOrigin(
-        name: json["name"],
-        url: json["url"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "url": url,
-      };
-}

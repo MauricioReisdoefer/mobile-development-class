@@ -1,5 +1,5 @@
-class Location {
-  Location({
+class Origin {
+  Origin({
     required this.name,
     required this.url,
   });
@@ -7,8 +7,8 @@ class Location {
   String name;
   String url;
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      Location(
+  factory Origin.fromJson(Map<String, dynamic> json) =>
+      Origin(
         name: json["name"],
         url: json["url"],
       );
