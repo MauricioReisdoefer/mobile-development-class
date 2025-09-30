@@ -7,6 +7,8 @@ import 'package:mobile_dev_class/widgets/characters.dart';
 import 'package:mobile_dev_class/widgets/appbar.dart';
 import 'package:http/http.dart' as http;
 
+int current_page = 1;
+
 // https://rickandmortyapi.com/api/character
 
 class TelaPersonagens extends StatefulWidget {
@@ -18,7 +20,7 @@ class _TelaPersonagensState extends State<TelaPersonagens> {
   List<Character> characters = [];
 
   Future<void> getPageData() async {
-    final response = await http.get(Uri.parse("https://rickandmortyapi.com/api/character"));
+    final response = await http.get(Uri.parse("https://rickandmortyapi.com/api/character?page=${current_page}"));
 
     if(response.statusCode != 200)
     {
@@ -38,20 +40,41 @@ class _TelaPersonagensState extends State<TelaPersonagens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: RickAppBar(),
-        body: FutureBuilder(
-          future: getPageData(), 
-          builder:(context, snapshot) {
-            if(1 == 1){
-              return 
-              CharactersList(
-                charList: characters
-              );
-          } else {
-            return Text("Vazio");
-          }
+        appBar: RickAppBar(),
+          body: FutureBuilder(
+            future: getPageData(), 
+            builder:(context, snapshot) {
+              if(1 == 1){
+                return 
+                CharactersList(
+                  charList: characters
+                );
+            } else {
+              return Text("Vazio");
+            }
           },
-        )
+        ),
+        floatingActionButton: 
+          Row(
+            children: [
+              IconButton(icon: Icon(Icons.arrow_left), onPressed: () {
+                current_page -= 1;
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => TelaPersonagens()),
+                );
+              },
+            ),
+            IconButton(icon: Icon(Icons.arrow_right), onPressed: () {
+                current_page += 1;
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => TelaPersonagens()),
+                );
+              },
+            ),
+            ],
+          )
     );
   }
 }
