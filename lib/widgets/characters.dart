@@ -4,7 +4,7 @@ import 'package:mobile_dev_class/core/models/character_model.dart';
 class CharactersList extends StatelessWidget {
   final List<Character> charList;
 
-  CharactersList({required this.charList});
+  const CharactersList({super.key, required this.charList});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,41 @@ class CharactersList extends StatelessWidget {
       itemCount: charList.length,
       itemBuilder: (context, index) {
         final character = charList[index];
-        return ListTile(
-          title: Text(character.name),
-          subtitle: Text(character.gender),
+        return Card(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: ListTile(
+            contentPadding: const EdgeInsets.all(12),
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                character.image,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            title: Text(
+              character.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Status: ${character.status}"),
+                Text("Espécie: ${character.species}"),
+                Text("Gênero: ${character.gender}"),
+                Text("Origem: ${character.origin.name}"),
+              ],
+            ),
+            onTap: () {
+              // Pra aparecer depois os locations ou episodes sla
+            },
+          ),
         );
       },
     );
