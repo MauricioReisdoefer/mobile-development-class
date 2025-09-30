@@ -16,6 +16,7 @@ class CharactersList extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           elevation: 4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          color: Colors.white60,
           child: ListTile(
             contentPadding: const EdgeInsets.all(12),
             leading: ClipRRect(

@@ -20,22 +20,23 @@ class _TelaPersonagensState extends State<TelaPersonagens> {
   List<Character> characters = [];
 
   Future<void> getPageData() async {
-    final response = await http.get(Uri.parse("https://rickandmortyapi.com/api/character?page=${current_page}"));
+    
+      final response = await http.get(Uri.parse("https://rickandmortyapi.com/api/character?page=${current_page}"));
 
-    if(response.statusCode != 200)
-    {
-      throw new Exception("Falha ao carregar os dados");
-    }
-
-    final body_decoded = jsonDecode(response.body);
-    final results = body_decoded["results"];
-    if(results != null)
-    {
-      for (final result in results)
+      if(response.statusCode != 200)
       {
-        characters.add(new Character.fromJson(result));
-      };
-    }
+        throw new Exception("Falha ao carregar os dados");
+      }
+
+      final body_decoded = jsonDecode(response.body);
+      final results = body_decoded["results"];
+      if(results != null)
+      {
+        for (final result in results)
+        {
+          characters.add(new Character.fromJson(result));
+        };
+      }
   }
   @override
   Widget build(BuildContext context) {
@@ -54,27 +55,44 @@ class _TelaPersonagensState extends State<TelaPersonagens> {
             }
           },
         ),
-        floatingActionButton: 
-          Row(
+        bottomNavigationBar: 
+        BottomAppBar(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(icon: Icon(Icons.arrow_left), onPressed: () {
-                current_page -= 1;
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => TelaPersonagens()),
-                );
-              },
-            ),
-            IconButton(icon: Icon(Icons.arrow_right), onPressed: () {
-                current_page += 1;
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => TelaPersonagens()),
-                );
-              },
-            ),
+              IconButton(
+                icon: Icon(Icons.arrow_left),
+                onPressed: () {
+                  setState(() {
+                    if(current_page >=2){
+                      current_page -= 1;
+                    }
+                  });
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaPersonagens()),
+                  );
+                },
+              ),
+              Text("Page ${current_page}"),
+              IconButton(
+                icon: Icon(Icons.arrow_right),
+                onPressed: () {
+                  setState(() {
+                    if(current_page <=41){
+                      current_page += 1;
+                    }
+                  });
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TelaPersonagens()),
+                  );
+                },
+              ),
             ],
-          )
+          ),
+        )
+
     );
   }
 }
