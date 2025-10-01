@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_class/core/models/character_model.dart';
+import 'package:mobile_dev_class/screens/single_personagem.dart';
 
 class CharactersList extends StatelessWidget {
   final List<Character> charList;
@@ -45,7 +46,7 @@ class CharactersList extends StatelessWidget {
               ],
             ),
             onTap: () {
-              // Pra aparecer depois os locations ou episodes sla
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SinglePersonagem(id: character.id)));
             },
           ),
         );

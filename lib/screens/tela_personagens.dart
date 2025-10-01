@@ -9,8 +9,6 @@ import 'package:http/http.dart' as http;
 
 int current_page = 1;
 
-// https://rickandmortyapi.com/api/character
-
 class TelaPersonagens extends StatefulWidget {
   @override
   State<TelaPersonagens> createState() => _TelaPersonagensState();
@@ -55,44 +53,6 @@ class _TelaPersonagensState extends State<TelaPersonagens> {
             }
           },
         ),
-        bottomNavigationBar: 
-        BottomAppBar(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_left),
-                onPressed: () {
-                  setState(() {
-                    if(current_page >=2){
-                      current_page -= 1;
-                    }
-                  });
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TelaPersonagens()),
-                  );
-                },
-              ),
-              Text("Page ${current_page}"),
-              IconButton(
-                icon: Icon(Icons.arrow_right),
-                onPressed: () {
-                  setState(() {
-                    if(current_page <=41){
-                      current_page += 1;
-                    }
-                  });
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TelaPersonagens()),
-                  );
-                },
-              ),
-            ],
-          ),
-        )
-
     );
   }
 }
