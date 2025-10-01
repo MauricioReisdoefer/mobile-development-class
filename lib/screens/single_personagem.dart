@@ -33,64 +33,81 @@ class _SinglePersonagemState extends State<SinglePersonagem> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: RickAppBar(),
-      body: FutureBuilder<Character>(
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: RickAppBar(),
+    body: Container(
+      child: FutureBuilder<Character>(
         future: getPageData(),
         builder: (context, asyncSnapshot) {
           if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.white));
           } else if (asyncSnapshot.hasError) {
-            return Center(child: Text("Erro: ${asyncSnapshot.error}"));
+            return Center(child: Text("Erro: ${asyncSnapshot.error}", style: TextStyle(color: Colors.white)));
           } else if (asyncSnapshot.hasData) {
             final char = asyncSnapshot.data!;
-            return Card(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              color: Colors.white60,
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(12),
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    char.image,
-                    width: 60,
-                    height: 60,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return Center(child: CircularProgressIndicator());
-                    },
-                  ),
+            return Center(
+              child: Card(
+                elevation: 8,
+                color: Colors.white.withOpacity(0.9),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                title: Text(
-                  char.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                margin: const EdgeInsets.all(20),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          char.image,
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        char.name,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Divider(),
+                      _infoLine("Status", char.status),
+                      _infoLine("Espécie", char.species),
+                      _infoLine("Gênero", char.gender),
+                      _infoLine("Origem", char.origin.name),
+                    ],
                   ),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Status: ${char.status}"),
-                    Text("Espécie: ${char.species}"),
-                    Text("Gênero: ${char.gender}"),
-                    Text("Origem: ${char.origin.name}"),
-                  ],
                 ),
               ),
             );
           } else {
-            return Center(child: Text("Sem dados para exibir"));
+            return const Center(child: Text("Sem dados para exibir", style: TextStyle(color: Colors.white)));
           }
         },
       ),
-    );
-  }
+    ),
+  );
+}
+
+Widget _infoLine(String label, String value) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 2),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text(value),
+      ],
+    ),
+  );
+}
+
 }
