@@ -27,7 +27,7 @@ class _SinglePersonagemState extends State<SinglePersonagem> {
 
     final bodyDecoded = jsonDecode(response.body);
     if (bodyDecoded != null) {
-      return Character.fromJson(bodyDecoded); // Retornando o objeto Character diretamente
+      return Character.fromJson(bodyDecoded);
     } else {
       throw Exception("Dados não encontrados");
     }
